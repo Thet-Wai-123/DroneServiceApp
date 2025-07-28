@@ -1,8 +1,9 @@
-
+import { useEffect, useState } from 'react';
 import { DroneCard } from '../Componenets/DroneCard/DroneCard';
 import Header from '../Componenets/Header/Header';
+import type { Drone } from '../Types/Drone';
 
-const templateData = [
+const drones = [
   {
     id: 1,
     name: 'AirSky',
@@ -42,12 +43,23 @@ const templateData = [
   },
 ];
 
+
 export function DronesList() {
+  // const [drones, setDrones] = useState<Drone[]>([]);
+
+  // const backend_url = import.meta.env.VITE_BACKEND_API_URL;
+
+  // useEffect(() => {
+  //   fetch(backend_url + `/drones`)
+  //     .then((response) => response.json())
+  //     .then((data) => setDrones(data));
+  // }, []);
+
   return (
     <>
       <Header />
       <div className="flex flex-wrap">
-        {templateData.map((template) => (
+        {drones.map((template) => (
           <DroneCard {...template} />
         ))}
       </div>

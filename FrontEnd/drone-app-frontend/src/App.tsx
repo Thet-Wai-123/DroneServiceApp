@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import { Home } from './Routes/Home';
 import { DroneInfoPage } from './Routes/DroneInfoPage';
 import { DronesList } from './Routes/DronesList';
+import dotenv from 'dotenv';
 
 function App() {
   return (

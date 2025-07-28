@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect } from 'react';
 import type { DroneCardPop } from '../../Types/DroneCard';
 import './DroneCard.css';
 import { useNavigate } from 'react-router';
