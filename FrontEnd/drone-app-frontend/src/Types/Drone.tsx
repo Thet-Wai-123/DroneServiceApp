@@ -6,5 +6,5 @@ export interface Drone {
   description: string;
   price: number;
   isAvailable: boolean;
-  Location: string;
+  location: {lat: number, lng:number};
 }

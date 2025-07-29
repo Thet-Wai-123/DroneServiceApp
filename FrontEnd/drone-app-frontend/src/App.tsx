@@ -4,6 +4,7 @@ import { Home } from './Routes/Home';
 import { DroneInfoPage } from './Routes/DroneInfoPage';
 import { DronesList } from './Routes/DronesList';
 import dotenv from 'dotenv';
+import { DronesMapView } from './Routes/DronesMapView';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/drones" element={<DronesList/>} />
+        <Route path="/map" element={<DronesMapView/>} />
         <Route path="/drones/drone/:id" element={<DroneInfoPage />} />
       </Routes>
     </BrowserRouter>
