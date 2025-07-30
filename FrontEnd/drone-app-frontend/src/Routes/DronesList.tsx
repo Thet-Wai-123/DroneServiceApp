@@ -57,8 +57,7 @@ export function DronesList() {
 
   return (
     <>
-      <Header />
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap bg-indigo-100">
         {drones.map((template) => (
           <DroneCard {...template} />
         ))}

@@ -5,10 +5,12 @@ import { DroneInfoPage } from './Routes/DroneInfoPage';
 import { DronesList } from './Routes/DronesList';
 import dotenv from 'dotenv';
 import { DronesMapView } from './Routes/DronesMapView';
+import Header from './Componenets/Header/Header';
 
 function App() {
   return (
     <BrowserRouter>
+    <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/drones" element={<DronesList/>} />

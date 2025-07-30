@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import type { Drone } from '../Types/Drone';
+import { SearchBar } from '../Componenets/SearchBar';
 
 //replace the pin location for user location to every drone instead, and the placeholder id 1 to the real id of the drone.
 
@@ -53,6 +54,10 @@ export function DronesMapView() {
 
   return (
     <div>
+      {/*Search Bar*/}
+      <SearchBar/>
+
+      {/*Map*/}
       <APIProvider apiKey={API_KEY}>
         <Map
           style={{ width: '100vw', height: '100vh' }}
