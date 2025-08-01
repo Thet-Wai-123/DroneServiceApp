@@ -1,19 +1,13 @@
-import {
-  APIProvider,
-  Map,
-  AdvancedMarker,
-  Pin,
-  InfoWindow,
-} from '@vis.gl/react-google-maps';
+import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 import { SearchBar } from '../Componenets/SearchBar';
 import { useAvaliableDroneList } from '../CustomHooks/useAvaliableDroneList';
+import { CustomMarker } from '../Componenets/CustomMarker';
 
 export function DronesMapView() {
   const drones = useAvaliableDroneList();
 
-  const [userLocation, setUserLocation] = useState<{
+  const [userLocation, setCenterLocation] = useState<{
     lat: number;
     lng: number;
   }>({
@@ -21,19 +15,15 @@ export function DronesMapView() {
     lng: -73.9855,
   });
 
+  //Default =gets the user location
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      setUserLocation({
+      setCenterLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
     });
-    console.log("Use Effect is called again")
-  }, [userLocation.lat, userLocation.lng]);
-
-  const nav = useNavigate();
-  //For info window when hovered
-  const [hoveredDroneId, setHoveredDroneId] = useState<number | null>(null);
+  }, []);
 
   //Exporting from env
   const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -42,53 +32,29 @@ export function DronesMapView() {
   return (
     <div>
       {/*Search Bar*/}
-      <SearchBar />
+      <SearchBar onChange={setCenterLocation} />
 
       {/*Map*/}
       <APIProvider apiKey={API_KEY}>
         <Map
           style={{ width: '100vw', height: '100vh' }}
-          defaultCenter={{
+          center={{
             lat: userLocation.lat,
             lng: userLocation.lng,
           }}
+          onCameraChanged={(event)=>{
+            setCenterLocation(event.detail.center);
+          }}
           defaultZoom={13}
           minZoom={11}
-          maxZoom={13}
-          gestureHandling={'greedy'}
+          maxZoom={15}
           disableDefaultUI={true}
           mapId={MAP_ID}
           clickableIcons={false}
         >
           {drones.map((drone) => (
-            <AdvancedMarker
-              position={{ lat: userLocation.lat, lng: userLocation.lng }}
-              onClick={() => {
-                nav(`drone/${drone.id}`);
-              }}
-              onMouseEnter={() => {
-                setHoveredDroneId(drone.id);
-              }}
-            >
-              <Pin
-                background={'blue'}
-                borderColor={'black'}
-                glyphColor={'blue'}
-              ></Pin>
-            </AdvancedMarker>
+            <CustomMarker {...drone}></CustomMarker>
           ))}
-
-          {/* {hoveredDroneId === 1 && (
-            <InfoWindow
-              position={{
-                lat: userLocation.lat,
-                lng: userLocation.lng,
-              }}
-              onCloseClick={() => setHoveredDroneId(null)}
-            >
-              Info about the drone here
-            </InfoWindow>
-          )} */}
         </Map>
       </APIProvider>
     </div>
