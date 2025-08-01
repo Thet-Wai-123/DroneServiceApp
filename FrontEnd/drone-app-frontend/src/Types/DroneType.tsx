@@ -2,9 +2,10 @@ export interface Drone {
   id: number;
   name: string;
   model: string;
-  operator: string;
+  operatorName: string;
   description: string;
   price: number;
   isAvailable: boolean;
-  location: {lat: number, lng:number};
+  latitude: number;
+  longitude: number;
 }
